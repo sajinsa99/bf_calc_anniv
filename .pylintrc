@@ -1,0 +1,4 @@
+[MESSAGES CONTROL]
+disable =
+    C0103,  # invalid-name (module name avec tiret)
+    C0301   # line-too-long
