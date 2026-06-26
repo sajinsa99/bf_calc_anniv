@@ -53,15 +53,17 @@ def parse_date_ou_annee(s: str, label: str) -> tuple[date | None, int | None, bo
         return date(int(annee), int(mois), int(jour)), None, False
     except (ValueError, TypeError):
         print(f"❌ Format de date {label} invalide : « {s} »", file=sys.stderr)
-        print(f"   Formats attendus : JJ-MM-AAAA  ou  AAAA  (ex: 02-04-2024 ou 2024)", file=sys.stderr)
+        print("   Formats attendus : JJ-MM-AAAA  ou  AAAA  (ex: 02-04-2024 ou 2024)", file=sys.stderr)
         sys.exit(1)
 
 
 def parse_deces(deces_str: str) -> tuple[date | None, int | None, bool]:
+    """Délègue à parse_date_ou_annee avec le label « de décès »."""
     return parse_date_ou_annee(deces_str, "de décès")
 
 
 def parse_futur(futur_str: str) -> tuple[date | None, int | None, bool]:
+    """Délègue à parse_date_ou_annee avec le label « future »."""
     return parse_date_ou_annee(futur_str, "future")
 
 
@@ -127,6 +129,7 @@ def note_bissextile_str(naissance: date, anniv: date) -> str:
 
 
 def note_bissextile_flag(naissance: date, anniv: date) -> bool:
+    """Retourne True si la date d'anniversaire a été reportée au 1er mars (29 fév sur non-bissextile)."""
     return naissance.month == 2 and naissance.day == 29 and anniv.month == 3
 
 
@@ -191,7 +194,7 @@ def affiche_section_deces_complet(naissance: date, deces: date, aujourd_hui: dat
     print(f"  Dans                                : {jours_deces} jour{'s' if jours_deces > 1 else ''}")
 
 
-def affiche_section_futur_complet(naissance: date, futur: date, aujourd_hui: date):
+def affiche_section_futur_complet(naissance: date, futur: date, _aujourd_hui: date):
     """Section date future avec date complète."""
     age_a_futur = age_a_la_date(naissance, futur)
     est_anniv = (futur.month == naissance.month and futur.day == naissance.day)
@@ -209,7 +212,7 @@ def affiche_section_futur_complet(naissance: date, futur: date, aujourd_hui: dat
         print(f"  Âge atteint           : {age_prochain} ans")
 
 
-def affiche_section_futur_annee(naissance: date, annee_futur: int, aujourd_hui: date):
+def affiche_section_futur_annee(naissance: date, annee_futur: int, _aujourd_hui: date):
     """Section date future avec année seule."""
     anniv_cette_annee = anniversaire_annee(naissance, annee_futur)
     age_avant = max(annee_futur - naissance.year - 1, 0)
@@ -264,6 +267,7 @@ def _fmt_iso(d: date) -> str:
 
 
 def data_vivant(naissance: date, aujourd_hui: date) -> dict:
+    """Construit le dict JSON pour une personne vivante."""
     age_actuel = age_a_la_date(naissance, aujourd_hui)
     est_anniv = (aujourd_hui.month == naissance.month and aujourd_hui.day == naissance.day)
     prochain, jours_restants = prochain_anniversaire(naissance, aujourd_hui)
@@ -278,6 +282,7 @@ def data_vivant(naissance: date, aujourd_hui: date) -> dict:
 
 
 def data_deces_complet(naissance: date, deces: date, aujourd_hui: date) -> dict:
+    """Construit le dict JSON pour un décès avec date complète."""
     age_deces = age_a_la_date(naissance, deces)
     age_aurait = age_a_la_date(naissance, aujourd_hui)
     anniv_annee_deces = anniversaire_annee(naissance, deces.year)
@@ -302,6 +307,7 @@ def data_deces_complet(naissance: date, deces: date, aujourd_hui: date) -> dict:
 
 
 def data_deces_annee(naissance: date, annee_deces: int, aujourd_hui: date) -> dict:
+    """Construit le dict JSON pour un décès avec année seule."""
     anniv_cette_annee = anniversaire_annee(naissance, annee_deces)
     age_avant = max(annee_deces - naissance.year - 1, 0)
     age_apres = annee_deces - naissance.year
@@ -329,7 +335,8 @@ def data_deces_annee(naissance: date, annee_deces: int, aujourd_hui: date) -> di
     }
 
 
-def data_futur_complet(naissance: date, futur: date, aujourd_hui: date) -> dict:
+def data_futur_complet(naissance: date, futur: date, _aujourd_hui: date) -> dict:
+    """Construit le dict JSON pour une date future complète."""
     age_a_futur = age_a_la_date(naissance, futur)
     est_anniv = (futur.month == naissance.month and futur.day == naissance.day)
     prochain, jours_restants = prochain_anniversaire(naissance, futur)
@@ -344,7 +351,8 @@ def data_futur_complet(naissance: date, futur: date, aujourd_hui: date) -> dict:
     }
 
 
-def data_futur_annee(naissance: date, annee_futur: int, aujourd_hui: date) -> dict:
+def data_futur_annee(naissance: date, annee_futur: int, _aujourd_hui: date) -> dict:
+    """Construit le dict JSON pour une date future avec année seule."""
     anniv_cette_annee = anniversaire_annee(naissance, annee_futur)
     age_avant = max(annee_futur - naissance.year - 1, 0)
     age_apres = annee_futur - naissance.year
@@ -362,7 +370,7 @@ def data_futur_annee(naissance: date, annee_futur: int, aujourd_hui: date) -> di
 # Main
 # ──────────────────────────────────────────────
 
-def main():
+def main():  # pylint: disable=too-many-branches,too-many-statements
     """Point d'entrée principal : parse les arguments et orchestre l'affichage."""
     parser = argparse.ArgumentParser(
         description="Calcule les informations d'anniversaire à partir d'une date de naissance.",
