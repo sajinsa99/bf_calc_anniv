@@ -57,6 +57,30 @@ def parse_deces(deces_str: str) -> tuple[date | None, int | None, bool]:
         sys.exit(1)
 
 
+def parse_futur(futur_str: str) -> tuple[date | None, int | None, bool]:
+    """
+    Parse --futur, qui accepte :
+      - JJ-MM-AAAA  → date complète
+      - AAAA        → année seule
+
+    Retourne (date_complete, annee_seule, est_annee_seule).
+    """
+    parties = futur_str.split("-")
+
+    if len(parties) == 1 and parties[0].isdigit() and len(parties[0]) == 4:
+        return None, int(parties[0]), True
+
+    try:
+        if len(parties) != 3:
+            raise ValueError
+        jour, mois, annee = parties
+        return date(int(annee), int(mois), int(jour)), None, False
+    except (ValueError, TypeError):
+        print(f"❌ Format de date future invalide : « {futur_str} »")
+        print("   Formats attendus : JJ-MM-AAAA  ou  AAAA  (ex: 25-12-2030 ou 2030)")
+        sys.exit(1)
+
+
 # ──────────────────────────────────────────────
 # Calculs
 # ──────────────────────────────────────────────
@@ -169,6 +193,42 @@ def affiche_section_deces_complet(naissance: date, deces: date, aujourd_hui: dat
     print(f"  Dans                                : {jours_deces} jour{'s' if jours_deces > 1 else ''}")
 
 
+def affiche_section_futur_complet(naissance: date, futur: date, aujourd_hui: date):
+    """Section date future avec date complète."""
+    age_a_futur = age_a_la_date(naissance, futur)
+    est_anniv = (futur.month == naissance.month and futur.day == naissance.day)
+
+    print(f"  Date de référence : {fmt_date(futur)}")
+    print(f"  Âge à cette date  : {age_a_futur} ans")
+    print()
+    prochain, jours_restants = prochain_anniversaire(naissance, futur)
+    age_prochain = age_a_futur + (0 if est_anniv else 1)
+    if est_anniv:
+        print(f"  🎂 C'est jour d'anniversaire ! ({age_a_futur} ans)")
+    else:
+        print(f"  Prochain anniversaire : {fmt_date(prochain)}")
+        print(f"  Dans                  : {jours_restants} jour{'s' if jours_restants > 1 else ''}")
+        print(f"  Âge atteint           : {age_prochain} ans")
+
+
+def affiche_section_futur_annee(naissance: date, annee_futur: int, aujourd_hui: date):
+    """Section date future avec année seule."""
+    anniv_cette_annee = anniversaire_annee(naissance, annee_futur)
+    age_avant = annee_futur - naissance.year - 1
+    age_apres = annee_futur - naissance.year
+
+    note_bissextile = " (→ 01/03, année non bissextile)" if (
+        naissance.month == 2 and naissance.day == 29
+        and anniv_cette_annee.month == 3
+    ) else ""
+
+    print(f"  Année de référence   : {annee_futur}")
+    print(f"  Âge dans cette année : {age_avant} ans (avant le {anniv_cette_annee.strftime('%d/%m')})"
+          f" ou {age_apres} ans (après){note_bissextile}")
+    print()
+    print(f"  Anniversaire dans cette année : {fmt_date(anniv_cette_annee)}{note_bissextile}")
+
+
 def affiche_section_deces_annee(naissance: date, annee_deces: int, aujourd_hui: date):
     """Section décès avec année seule."""
     # Âge : fourchette (avant/après l'anniversaire dans l'année)
@@ -214,6 +274,8 @@ def main():
             "  %(prog)s --date 14-10-1938\n"
             "  %(prog)s --date 14-10-1938 --deces 02-04-2024\n"
             "  %(prog)s --date 14-10-1938 --deces 2024\n"
+            "  %(prog)s --date 14-10-1938 --futur 25-12-2030\n"
+            "  %(prog)s --date 14-10-1938 --futur 2030\n"
         ),
     )
     parser.add_argument(
@@ -226,13 +288,18 @@ def main():
         metavar="JJ-MM-AAAA ou AAAA",
         help="Date de décès complète ou année seule (ex: 02-04-2024 ou 2024)",
     )
+    parser.add_argument(
+        "--futur",
+        metavar="JJ-MM-AAAA ou AAAA",
+        help="Date ou année future de référence (ex: 25-12-2030 ou 2030)",
+    )
     args = parser.parse_args()
 
     aujourd_hui = date.today()
 
-    # --date obligatoire si --deces fourni
-    if args.deces and not args.date:
-        print("❌ --date est obligatoire quand --deces est utilisé.")
+    # --date obligatoire si --deces ou --futur fourni
+    if (args.deces or args.futur) and not args.date:
+        print("❌ --date est obligatoire quand --deces ou --futur est utilisé.")
         sys.exit(1)
 
     if not args.date:
@@ -276,6 +343,22 @@ def main():
                 print("❌ La date de décès est antérieure à la date de naissance.")
                 sys.exit(1)
             affiche_section_deces_complet(naissance, deces_date, aujourd_hui)
+
+    # ── Cas avec date future ──
+    elif args.futur:
+        futur_date, annee_futur, est_annee_seule = parse_futur(args.futur)
+
+        if est_annee_seule:
+            if annee_futur < naissance.year:
+                print(f"❌ L'année de référence « {annee_futur} » est antérieure à la naissance ({naissance.year}).")
+                sys.exit(1)
+            affiche_section_futur_annee(naissance, annee_futur, aujourd_hui)
+
+        else:
+            if futur_date < naissance:
+                print("❌ La date de référence est antérieure à la date de naissance.")
+                sys.exit(1)
+            affiche_section_futur_complet(naissance, futur_date, aujourd_hui)
 
     # ── Cas sans décès ──
     else:
