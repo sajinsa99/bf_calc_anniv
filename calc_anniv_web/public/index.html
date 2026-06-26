@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Informations d'anniversaire</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div id="app">
+  <header>
+    <h1>🎂 Informations d'anniversaire</h1>
+  </header>
+
+  <main>
+    <section class="form-section">
+      <div class="form-group">
+        <label for="input-date">Date de naissance <span class="fmt-hint">(JJ-MM-AAAA)</span></label>
+        <input type="text" id="input-date" placeholder="ex : 14-10-1938" maxlength="10" autocomplete="off" />
+      </div>
+
+      <fieldset class="mode-fieldset">
+        <legend>Mode</legend>
+        <label class="radio-label">
+          <input type="radio" name="mode" value="vivant" checked /> Vivant·e
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="mode" value="deces" /> Décès
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="mode" value="futur" /> Date future
+        </label>
+      </fieldset>
+
+      <!-- Champs conditionnels décès -->
+      <div id="deces-fields" class="conditional-fields hidden">
+        <div class="toggle-row">
+          <label class="toggle-label">
+            <input type="checkbox" id="deces-annee-only" />
+            Année seule
+          </label>
+        </div>
+        <div class="form-group" id="deces-date-group">
+          <label for="input-deces">Date de décès <span class="fmt-hint">(JJ-MM-AAAA)</span></label>
+          <input type="text" id="input-deces" placeholder="ex : 02-04-2024" maxlength="10" autocomplete="off" />
+        </div>
+        <div class="form-group hidden" id="deces-year-group">
+          <label for="input-deces-annee">Année de décès <span class="fmt-hint">(AAAA)</span></label>
+          <input type="text" id="input-deces-annee" placeholder="ex : 2024" maxlength="4" autocomplete="off" />
+        </div>
+      </div>
+
+      <!-- Champs conditionnels futur -->
+      <div id="futur-fields" class="conditional-fields hidden">
+        <div class="toggle-row">
+          <label class="toggle-label">
+            <input type="checkbox" id="futur-annee-only" />
+            Année seule
+          </label>
+        </div>
+        <div class="form-group" id="futur-date-group">
+          <label for="input-futur">Date de référence <span class="fmt-hint">(JJ-MM-AAAA)</span></label>
+          <input type="text" id="input-futur" placeholder="ex : 25-12-2030" maxlength="10" autocomplete="off" />
+        </div>
+        <div class="form-group hidden" id="futur-year-group">
+          <label for="input-futur-annee">Année de référence <span class="fmt-hint">(AAAA)</span></label>
+          <input type="text" id="input-futur-annee" placeholder="ex : 2030" maxlength="4" autocomplete="off" />
+        </div>
+      </div>
+
+      <button id="btn-calc" type="button">Calculer</button>
+    </section>
+
+    <div id="status" class="status hidden"></div>
+
+    <section id="result" class="hidden"></section>
+  </main>
+</div>
+<script src="app.js" type="module"></script>
+</body>
+</html>

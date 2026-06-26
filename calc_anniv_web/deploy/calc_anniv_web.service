@@ -1,0 +1,16 @@
+[Unit]
+Description=Calc Anniv web UI
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/opt/bf_calc_anniv/calc_anniv_web
+Environment=PORT=6001
+Environment=PYTHON=python3
+ExecStart=/usr/bin/node server.js
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

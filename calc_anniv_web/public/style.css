@@ -1,0 +1,224 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+.hidden { display: none !important; }
+
+body {
+  font-family: system-ui, sans-serif;
+  background: #111;
+  color: #e8e8e8;
+  min-height: 100vh;
+}
+
+#app {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+}
+
+header {
+  margin-bottom: 1.5rem;
+}
+
+header h1 {
+  font-size: 1.6rem;
+  color: #f5c518;
+  letter-spacing: 0.03em;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Form */
+.form-section {
+  background: #1a1a2a;
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 1.2rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.form-group label {
+  font-size: 0.88rem;
+  color: #aaa;
+}
+
+.fmt-hint {
+  font-size: 0.78rem;
+  color: #666;
+}
+
+.form-group input[type=text] {
+  padding: 0.45rem 0.7rem;
+  border-radius: 6px;
+  border: 1px solid #444;
+  background: #111;
+  color: #e8e8e8;
+  font-size: 0.95rem;
+  max-width: 200px;
+}
+
+.form-group input[type=text]:focus {
+  border-color: #666;
+  outline: none;
+}
+
+/* Radio mode */
+.mode-fieldset {
+  border: 1px solid #333;
+  border-radius: 7px;
+  padding: 0.6rem 0.9rem;
+  display: flex;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+}
+
+.mode-fieldset legend {
+  font-size: 0.8rem;
+  color: #888;
+  padding: 0 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  color: #ccc;
+  cursor: pointer;
+}
+
+/* Conditional fields */
+.conditional-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0.8rem 1rem;
+  background: #141424;
+  border: 1px solid #2a2a3a;
+  border-radius: 7px;
+}
+
+
+.toggle-row {
+  display: flex;
+  align-items: center;
+}
+
+.toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  color: #888;
+  cursor: pointer;
+}
+
+/* Buttons */
+button {
+  padding: 0.5rem 1.4rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: background 0.15s;
+  align-self: flex-start;
+}
+
+#btn-calc { background: #c49a1a; color: #111; }
+#btn-calc:hover { background: #a07e14; }
+#btn-calc:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* Status */
+.status {
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+.status.info  { background: #1a3a5c; color: #7bc8ff; }
+.status.error { background: #5c1a1a; color: #ff9090; }
+
+/* Result section */
+#result {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.result-header {
+  border-bottom: 1px solid #333;
+  padding-bottom: 0.6rem;
+}
+
+.result-naissance {
+  font-size: 1rem;
+  color: #f5c518;
+  font-weight: 600;
+}
+
+/* Info cards */
+.info-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.info-card {
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 0.8rem 1.1rem;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.card-title {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #888;
+}
+
+.card-value {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #e8e8e8;
+}
+
+.card-sub {
+  font-size: 0.82rem;
+  color: #888;
+}
+
+.card-highlight {
+  color: #f5c518;
+}
+
+.card-anniv {
+  background: #1a2a1a;
+  border-color: #2a4a2a;
+}
+
+.card-anniv .card-value {
+  color: #7ddb7d;
+}
+
+.note-biss {
+  font-size: 0.75rem;
+  color: #c49a1a;
+  font-style: italic;
+}
