@@ -1,4 +1,4 @@
-# Checks Report — bf_calc_anniv — 2026-06-26 19:20:47
+# Checks Report — bf_calc_anniv — 2026-06-26 19:24:36
 
 ## Summary
 
@@ -106,25 +106,6 @@ _no output_
 **Status:** ❌ FAIL (exit 28)
 
 ```
-Unable to find image 'python:3.12-slim' locally
-3.12-slim: Pulling from library/python
-e95a6c7ea7d4: Pulling fs layer
-aff2d9f8dc87: Pulling fs layer
-df79d931cd67: Pulling fs layer
-b32430367bf0: Pulling fs layer
-b32430367bf0: Waiting
-aff2d9f8dc87: Download complete
-e95a6c7ea7d4: Download complete
-b32430367bf0: Verifying Checksum
-b32430367bf0: Download complete
-df79d931cd67: Verifying Checksum
-df79d931cd67: Download complete
-e95a6c7ea7d4: Pull complete
-aff2d9f8dc87: Pull complete
-df79d931cd67: Pull complete
-b32430367bf0: Pull complete
-Digest: sha256:6c4dd321d176d61ea848dc8c73a4f7dbae8f70e0ee48bb411ea2f045b599fa8e
-Status: Downloaded newer image for python:3.12-slim
 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
 
 [notice] A new release of pip is available: 25.0.1 -> 26.1.2
@@ -169,7 +150,7 @@ collected 28 items
 
 tests/test_calc_anniv.py ............................                    [100%]
 
-============================== 28 passed in 0.39s ==============================
+============================== 28 passed in 0.35s ==============================
 ```
 
 ---
@@ -231,14 +212,14 @@ See https://semgrep.dev/docs/reporting-false-negatives/
 **Status:** ✅ PASS
 
 ```
-2026-06-26T17:20:40Z	INFO	[vulndb] Need to update DB
-2026-06-26T17:20:40Z	INFO	[vulndb] Downloading vulnerability DB...
-2026-06-26T17:20:40Z	INFO	[vulndb] Downloading artifact...	repo="mirror.gcr.io/aquasec/trivy-db:2"
-27.57 MiB / 97.58 MiB [----------------->___________________________________________] 28.26% ? p/s ?62.45 MiB / 97.58 MiB [--------------------------------------->_____________________] 64.00% ? p/s ?97.58 MiB / 97.58 MiB [----------------------------------------------------------->] 100.00% ? p/s ?97.58 MiB / 97.58 MiB [--------------------------------------------->] 100.00% 116.64 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [--------------------------------------------->] 100.00% 116.64 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [--------------------------------------------->] 100.00% 116.64 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [--------------------------------------------->] 100.00% 109.11 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [--------------------------------------------->] 100.00% 109.11 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [--------------------------------------------->] 100.00% 109.11 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [--------------------------------------------->] 100.00% 102.07 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [--------------------------------------------->] 100.00% 102.07 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [--------------------------------------------->] 100.00% 102.07 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [---------------------------------------------->] 100.00% 95.49 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [---------------------------------------------->] 100.00% 95.49 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [---------------------------------------------->] 100.00% 95.49 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [---------------------------------------------->] 100.00% 89.33 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [---------------------------------------------->] 100.00% 89.33 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [---------------------------------------------->] 100.00% 89.33 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [---------------------------------------------->] 100.00% 83.56 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [---------------------------------------------->] 100.00% 83.56 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [-------------------------------------------------] 100.00% 25.57 MiB p/s 4.0s2026-06-26T17:20:45Z	INFO	[vulndb] Artifact successfully downloaded	repo="mirror.gcr.io/aquasec/trivy-db:2"
-2026-06-26T17:20:45Z	INFO	[vuln] Vulnerability scanning is enabled
-2026-06-26T17:20:45Z	INFO	Suppressing dependencies for development and testing. To display them, try the '--include-dev-deps' flag.
-2026-06-26T17:20:45Z	INFO	Number of language-specific files	num=1
-2026-06-26T17:20:45Z	INFO	[npm] Detecting vulnerabilities...
+2026-06-26T17:24:30Z	INFO	[vulndb] Need to update DB
+2026-06-26T17:24:30Z	INFO	[vulndb] Downloading vulnerability DB...
+2026-06-26T17:24:30Z	INFO	[vulndb] Downloading artifact...	repo="mirror.gcr.io/aquasec/trivy-db:2"
+23.74 MiB / 97.58 MiB [-------------->______________________________________________] 24.32% ? p/s ?55.57 MiB / 97.58 MiB [---------------------------------->__________________________] 56.95% ? p/s ?80.61 MiB / 97.58 MiB [-------------------------------------------------->__________] 82.61% ? p/s ?97.58 MiB / 97.58 MiB [--------------------------------------------->] 100.00% 122.97 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [--------------------------------------------->] 100.00% 122.97 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [--------------------------------------------->] 100.00% 122.97 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [--------------------------------------------->] 100.00% 115.04 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [--------------------------------------------->] 100.00% 115.04 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [--------------------------------------------->] 100.00% 115.04 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [--------------------------------------------->] 100.00% 107.62 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [--------------------------------------------->] 100.00% 107.62 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [--------------------------------------------->] 100.00% 107.62 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [--------------------------------------------->] 100.00% 100.67 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [--------------------------------------------->] 100.00% 100.67 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [--------------------------------------------->] 100.00% 100.67 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [---------------------------------------------->] 100.00% 94.18 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [---------------------------------------------->] 100.00% 94.18 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [---------------------------------------------->] 100.00% 94.18 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [---------------------------------------------->] 100.00% 88.10 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [---------------------------------------------->] 100.00% 88.10 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [---------------------------------------------->] 100.00% 88.10 MiB p/s ETA 0s97.58 MiB / 97.58 MiB [-------------------------------------------------] 100.00% 23.46 MiB p/s 4.4s2026-06-26T17:24:34Z	INFO	[vulndb] Artifact successfully downloaded	repo="mirror.gcr.io/aquasec/trivy-db:2"
+2026-06-26T17:24:34Z	INFO	[vuln] Vulnerability scanning is enabled
+2026-06-26T17:24:34Z	INFO	Suppressing dependencies for development and testing. To display them, try the '--include-dev-deps' flag.
+2026-06-26T17:24:34Z	INFO	Number of language-specific files	num=1
+2026-06-26T17:24:34Z	INFO	[npm] Detecting vulnerabilities...
 
 Report Summary
 
@@ -268,9 +249,9 @@ Legend:
     ○ ░
     ░    gitleaks
 
-[90m5:20PM[0m [32mINF[0m [1m7 commits scanned.[0m
-[90m5:20PM[0m [32mINF[0m [1mscanned ~121192 bytes (121.19 KB) in 319ms[0m
-[90m5:20PM[0m [32mINF[0m [1mno leaks found[0m
+[90m5:24PM[0m [32mINF[0m [1m8 commits scanned.[0m
+[90m5:24PM[0m [32mINF[0m [1mscanned ~127770 bytes (127.77 KB) in 272ms[0m
+[90m5:24PM[0m [32mINF[0m [1mno leaks found[0m
 ```
 
 ---
