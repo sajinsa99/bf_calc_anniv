@@ -9,7 +9,9 @@ set -uo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")" || exit 1
 
 IMAGE="xmake-deploy-milestone.int.repositories.cloud.sap/com.sap.internal.prd.xmk.tools/xmk_linters:1.1.4"
+IMAGE_PYTHON="python:3.12-slim"
 DOCKER_RUN=(docker run --rm --user root -v "$(pwd):/work" -w /work "$IMAGE")
+DOCKER_RUN_PY=(docker run --rm --user root -v "$(pwd):/work" -w /work "$IMAGE_PYTHON")
 REPORT="checks-report.md"
 
 # ── colour (terminal only) ────────────────────────────────────────────────────
@@ -156,9 +158,9 @@ fi
 
 section "Python"
 step "pylint  calc-anniv.py" \
-  "${DOCKER_RUN[@]}" pylint calc-anniv.py
+  "${DOCKER_RUN_PY[@]}" bash -c 'pip install pylint --quiet && pylint calc-anniv.py'
 step "pytest  tests/" \
-  "${DOCKER_RUN[@]}" pytest tests/
+  "${DOCKER_RUN_PY[@]}" bash -c 'pip install pytest --quiet && pytest tests/'
 
 section "Static Analysis"
 step "semgrep  calc-anniv.py + JS sources" \
