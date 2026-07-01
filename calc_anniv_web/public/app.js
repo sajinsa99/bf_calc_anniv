@@ -19,8 +19,13 @@ const chkDeces        = document.getElementById('chk-deces');
 const chkFutur        = document.getElementById('chk-futur');
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
-const RE_DATE = /^\d{2}-\d{2}-\d{4}$/;
 const RE_YEAR = /^\d{4}$/;
+
+// Convertit YYYY-MM-DD (valeur native d'un input type=date) en JJ-MM-AAAA
+function isoToFr(isoDate) {
+  const [y, m, d] = isoDate.split('-');
+  return `${d}-${m}-${y}`;
+}
 
 function jourSemaineFr(isoDate) {
   const jours = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
@@ -69,28 +74,26 @@ futurAnneeOnly.addEventListener('change', () => {
 
 // ── Validation client ─────────────────────────────────────────────────────────
 function validate() {
-  if (!RE_DATE.test(inputDate.value.trim())) {
-    setStatus('Format de date de naissance invalide — attendu JJ-MM-AAAA', 'error');
+  if (!inputDate.value) {
+    setStatus('Veuillez sélectionner une date de naissance', 'error');
     return false;
   }
   if (chkDeces.checked) {
-    const val = decesAnneeOnly.checked ? inputDecesAnnee.value.trim() : inputDeces.value.trim();
-    if (!val) { setStatus('Veuillez saisir la date ou l\'année de décès', 'error'); return false; }
-    if (decesAnneeOnly.checked && !RE_YEAR.test(val)) {
-      setStatus('Format d\'année invalide — attendu AAAA', 'error'); return false;
-    }
-    if (!decesAnneeOnly.checked && !RE_DATE.test(val)) {
-      setStatus('Format de date de décès invalide — attendu JJ-MM-AAAA', 'error'); return false;
+    if (decesAnneeOnly.checked) {
+      if (!RE_YEAR.test(inputDecesAnnee.value.trim())) {
+        setStatus('Format d\'année invalide — attendu AAAA', 'error'); return false;
+      }
+    } else if (!inputDeces.value) {
+      setStatus('Veuillez sélectionner une date de décès', 'error'); return false;
     }
   }
   if (chkFutur.checked) {
-    const val = futurAnneeOnly.checked ? inputFuturAnnee.value.trim() : inputFutur.value.trim();
-    if (!val) { setStatus('Veuillez saisir la date ou l\'année de référence', 'error'); return false; }
-    if (futurAnneeOnly.checked && !RE_YEAR.test(val)) {
-      setStatus('Format d\'année invalide — attendu AAAA', 'error'); return false;
-    }
-    if (!futurAnneeOnly.checked && !RE_DATE.test(val)) {
-      setStatus('Format de date invalide — attendu JJ-MM-AAAA', 'error'); return false;
+    if (futurAnneeOnly.checked) {
+      if (!RE_YEAR.test(inputFuturAnnee.value.trim())) {
+        setStatus('Format d\'année invalide — attendu AAAA', 'error'); return false;
+      }
+    } else if (!inputFutur.value) {
+      setStatus('Veuillez sélectionner une date de référence', 'error'); return false;
     }
   }
   return true;
@@ -98,7 +101,7 @@ function validate() {
 
 // ── API calls ─────────────────────────────────────────────────────────────────
 async function fetchCalc(extraParams) {
-  const params = new URLSearchParams({ date: inputDate.value.trim(), ...extraParams });
+  const params = new URLSearchParams({ date: isoToFr(inputDate.value), ...extraParams });
   const resp = await fetch(`api/calc?${params}`);
   const payload = await resp.json();
   if (!resp.ok) throw new Error(payload.error || 'Erreur serveur');
@@ -120,12 +123,12 @@ async function handleSubmit() {
   requests.push(fetchCalc({}));
 
   if (chkDeces.checked) {
-    const val = decesAnneeOnly.checked ? inputDecesAnnee.value.trim() : inputDeces.value.trim();
+    const val = decesAnneeOnly.checked ? inputDecesAnnee.value.trim() : isoToFr(inputDeces.value);
     requests.push(fetchCalc({ deces: val }));
   }
 
   if (chkFutur.checked) {
-    const val = futurAnneeOnly.checked ? inputFuturAnnee.value.trim() : inputFutur.value.trim();
+    const val = futurAnneeOnly.checked ? inputFuturAnnee.value.trim() : isoToFr(inputFutur.value);
     requests.push(fetchCalc({ futur: val }));
   }
 
@@ -141,7 +144,7 @@ async function handleSubmit() {
 }
 
 btnCalc.addEventListener('click', handleSubmit);
-[inputDate, inputDeces, inputDecesAnnee, inputFutur, inputFuturAnnee].forEach(el => {
+[inputDecesAnnee, inputFuturAnnee].forEach(el => {
   el.addEventListener('keydown', e => { if (e.key === 'Enter') handleSubmit(); });
 });
 
