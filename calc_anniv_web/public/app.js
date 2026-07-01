@@ -148,6 +148,27 @@ btnCalc.addEventListener('click', handleSubmit);
   el.addEventListener('keydown', e => { if (e.key === 'Enter') handleSubmit(); });
 });
 
+const btnReset = document.getElementById('btn-reset');
+btnReset.addEventListener('click', () => {
+  inputDate.value = '';
+  inputDeces.value = '';
+  inputDecesAnnee.value = '';
+  inputFutur.value = '';
+  inputFuturAnnee.value = '';
+  chkDeces.checked = false;
+  chkFutur.checked = false;
+  decesAnneeOnly.checked = false;
+  futurAnneeOnly.checked = false;
+  updateModeUI();
+  decesDateGroup.classList.remove('hidden');
+  decesYearGroup.classList.add('hidden');
+  futurDateGroup.classList.remove('hidden');
+  futurYearGroup.classList.add('hidden');
+  clearStatus();
+  resultEl.classList.add('hidden');
+  resultEl.innerHTML = '';
+});
+
 // ── Renderers ─────────────────────────────────────────────────────────────────
 function card(title, value, sub = '', extra = '') {
   return `<div class="info-card">

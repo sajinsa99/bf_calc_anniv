@@ -126,6 +126,12 @@ main {
 }
 
 /* Buttons */
+.btn-row {
+  display: flex;
+  gap: 0.7rem;
+  align-items: center;
+}
+
 button {
   padding: 0.5rem 1.4rem;
   border-radius: 6px;
@@ -140,6 +146,9 @@ button {
 #btn-calc { background: #c49a1a; color: #111; }
 #btn-calc:hover { background: #a07e14; }
 #btn-calc:disabled { opacity: 0.5; cursor: not-allowed; }
+
+#btn-reset { background: transparent; color: #888; border: 1px solid #444; }
+#btn-reset:hover { color: #ccc; border-color: #666; }
 
 /* Status */
 .status {
