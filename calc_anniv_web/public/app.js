@@ -15,7 +15,8 @@ const futurDateGroup  = document.getElementById('futur-date-group');
 const futurYearGroup  = document.getElementById('futur-year-group');
 const decesAnneeOnly  = document.getElementById('deces-annee-only');
 const futurAnneeOnly  = document.getElementById('futur-annee-only');
-const modeRadios      = document.querySelectorAll('input[name="mode"]');
+const chkDeces        = document.getElementById('chk-deces');
+const chkFutur        = document.getElementById('chk-futur');
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 const RE_DATE = /^\d{2}-\d{2}-\d{4}$/;
@@ -47,18 +48,14 @@ function clearStatus() {
   statusEl.textContent = '';
 }
 
-// ── Mode toggles ──────────────────────────────────────────────────────────────
-function getMode() {
-  return [...modeRadios].find(r => r.checked)?.value ?? 'vivant';
-}
-
+// ── Checkbox toggles ──────────────────────────────────────────────────────────
 function updateModeUI() {
-  const mode = getMode();
-  decesFields.classList.toggle('hidden', mode !== 'deces');
-  futurFields.classList.toggle('hidden', mode !== 'futur');
+  decesFields.classList.toggle('hidden', !chkDeces.checked);
+  futurFields.classList.toggle('hidden', !chkFutur.checked);
 }
 
-modeRadios.forEach(r => r.addEventListener('change', updateModeUI));
+chkDeces.addEventListener('change', updateModeUI);
+chkFutur.addEventListener('change', updateModeUI);
 
 decesAnneeOnly.addEventListener('change', () => {
   decesDateGroup.classList.toggle('hidden', decesAnneeOnly.checked);
@@ -76,8 +73,7 @@ function validate() {
     setStatus('Format de date de naissance invalide — attendu JJ-MM-AAAA', 'error');
     return false;
   }
-  const mode = getMode();
-  if (mode === 'deces') {
+  if (chkDeces.checked) {
     const val = decesAnneeOnly.checked ? inputDecesAnnee.value.trim() : inputDeces.value.trim();
     if (!val) { setStatus('Veuillez saisir la date ou l\'année de décès', 'error'); return false; }
     if (decesAnneeOnly.checked && !RE_YEAR.test(val)) {
@@ -87,7 +83,7 @@ function validate() {
       setStatus('Format de date de décès invalide — attendu JJ-MM-AAAA', 'error'); return false;
     }
   }
-  if (mode === 'futur') {
+  if (chkFutur.checked) {
     const val = futurAnneeOnly.checked ? inputFuturAnnee.value.trim() : inputFutur.value.trim();
     if (!val) { setStatus('Veuillez saisir la date ou l\'année de référence', 'error'); return false; }
     if (futurAnneeOnly.checked && !RE_YEAR.test(val)) {
@@ -100,6 +96,15 @@ function validate() {
   return true;
 }
 
+// ── API calls ─────────────────────────────────────────────────────────────────
+async function fetchCalc(extraParams) {
+  const params = new URLSearchParams({ date: inputDate.value.trim(), ...extraParams });
+  const resp = await fetch(`/api/calc?${params}`);
+  const payload = await resp.json();
+  if (!resp.ok) throw new Error(payload.error || 'Erreur serveur');
+  return payload;
+}
+
 // ── Submit ────────────────────────────────────────────────────────────────────
 async function handleSubmit() {
   clearStatus();
@@ -109,25 +114,27 @@ async function handleSubmit() {
   btnCalc.disabled = true;
   setStatus('Calcul en cours…');
 
-  const params = new URLSearchParams({ date: inputDate.value.trim() });
-  const mode = getMode();
-  if (mode === 'deces') {
-    params.set('deces', decesAnneeOnly.checked ? inputDecesAnnee.value.trim() : inputDeces.value.trim());
-  } else if (mode === 'futur') {
-    params.set('futur', futurAnneeOnly.checked ? inputFuturAnnee.value.trim() : inputFutur.value.trim());
+  const requests = [];
+
+  // Toujours calculer le mode vivant
+  requests.push(fetchCalc({}));
+
+  if (chkDeces.checked) {
+    const val = decesAnneeOnly.checked ? inputDecesAnnee.value.trim() : inputDeces.value.trim();
+    requests.push(fetchCalc({ deces: val }));
+  }
+
+  if (chkFutur.checked) {
+    const val = futurAnneeOnly.checked ? inputFuturAnnee.value.trim() : inputFutur.value.trim();
+    requests.push(fetchCalc({ futur: val }));
   }
 
   try {
-    const resp = await fetch(`/api/calc?${params}`);
-    const payload = await resp.json();
-    if (!resp.ok) {
-      setStatus(payload.error || 'Erreur serveur', 'error');
-      return;
-    }
+    const results = await Promise.all(requests);
     clearStatus();
-    renderResult(payload);
+    renderAllResults(results);
   } catch (e) {
-    setStatus('Erreur réseau : ' + e.message, 'error');
+    setStatus(e.message, 'error');
   } finally {
     btnCalc.disabled = false;
   }
@@ -212,7 +219,7 @@ function renderDecesAnnee(naissance, d) {
   if (d.nb_anniv_depuis_deces_approx > 0) {
     html += card('Anniversaires depuis le décès', `≈ ${d.nb_anniv_depuis_deces_approx}`, '(approximatif — date exacte inconnue)');
   }
-  html += card('Prochain anniversaire du décès', `courant ${d.prochain_anniv_deces_annee}`, '(date exacte inconnue)');
+  html += card('Prochain anniversaire du décès', `courant ${d.prochain_anniv_deces_annee}`, '(date exacte inconnue)', `d'ici le 31/12/${d.prochain_anniv_deces_annee}`);
   html += `</div>`;
   return html;
 }
@@ -250,12 +257,9 @@ function renderFuturAnnee(naissance, d) {
   return html;
 }
 
-function renderResult(payload) {
+function renderOneResult(payload) {
   const { naissance, mode, data } = payload;
-  let html = `<div class="result-header">
-    <div class="result-naissance">🎂 Date de naissance : ${formatDateFr(naissance)}</div>
-  </div>`;
-
+  let html = '';
   switch (mode) {
     case 'vivant':      html += renderVivant(naissance, data);     break;
     case 'deces':       html += renderDeces(naissance, data);      break;
@@ -264,6 +268,31 @@ function renderResult(payload) {
     case 'futur_annee': html += renderFuturAnnee(naissance, data); break;
     default:
       html += `<p>Mode inconnu : ${mode}</p>`;
+  }
+  return html;
+}
+
+const MODE_LABELS = {
+  vivant:      'Aujourd\'hui',
+  deces:       'Décès',
+  deces_annee: 'Décès (année)',
+  futur:       'Date future',
+  futur_annee: 'Date future (année)',
+};
+
+function renderAllResults(payloads) {
+  const naissance = payloads[0].naissance;
+  const multiSection = payloads.length > 1;
+
+  let html = `<div class="result-header">
+    <div class="result-naissance">🎂 Date de naissance : ${formatDateFr(naissance)}</div>
+  </div>`;
+
+  for (const payload of payloads) {
+    if (multiSection) {
+      html += `<div class="result-section-title">${MODE_LABELS[payload.mode] ?? payload.mode}</div>`;
+    }
+    html += renderOneResult(payload);
   }
 
   resultEl.innerHTML = html;

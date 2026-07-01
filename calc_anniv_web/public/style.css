@@ -217,6 +217,16 @@ button {
   color: #7ddb7d;
 }
 
+.result-section-title {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #f5c518;
+  border-bottom: 1px solid #333;
+  padding-bottom: 0.3rem;
+  margin-top: 0.5rem;
+}
+
 .note-biss {
   font-size: 0.75rem;
   color: #c49a1a;
