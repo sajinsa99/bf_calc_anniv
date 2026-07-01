@@ -27,6 +27,9 @@
         <label class="radio-label">
           <input type="checkbox" id="chk-futur"> Date future
         </label>
+        <label class="radio-label">
+          <input type="checkbox" id="chk-age"> Âge
+        </label>
       </fieldset>
 
       <!-- Champs conditionnels décès -->
@@ -62,6 +65,14 @@
         <div class="form-group hidden" id="futur-year-group">
           <label for="input-futur-annee">Année de référence <span class="fmt-hint">(AAAA)</span></label>
           <input type="text" id="input-futur-annee" placeholder="ex : 2030" maxlength="4" autocomplete="off">
+        </div>
+      </div>
+
+      <!-- Champs conditionnels âge -->
+      <div id="age-fields" class="conditional-fields hidden">
+        <div class="form-group">
+          <label for="input-age">Âge <span class="fmt-hint">(nombre entier)</span></label>
+          <input type="number" id="input-age" min="0" max="150" placeholder="ex : 18" autocomplete="off">
         </div>
       </div>
 

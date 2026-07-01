@@ -17,6 +17,9 @@ const decesAnneeOnly  = document.getElementById('deces-annee-only');
 const futurAnneeOnly  = document.getElementById('futur-annee-only');
 const chkDeces        = document.getElementById('chk-deces');
 const chkFutur        = document.getElementById('chk-futur');
+const chkAge          = document.getElementById('chk-age');
+const ageFields       = document.getElementById('age-fields');
+const inputAge        = document.getElementById('input-age');
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 const RE_YEAR = /^\d{4}$/;
@@ -57,10 +60,12 @@ function clearStatus() {
 function updateModeUI() {
   decesFields.classList.toggle('hidden', !chkDeces.checked);
   futurFields.classList.toggle('hidden', !chkFutur.checked);
+  ageFields.classList.toggle('hidden', !chkAge.checked);
 }
 
 chkDeces.addEventListener('change', updateModeUI);
 chkFutur.addEventListener('change', updateModeUI);
+chkAge.addEventListener('change', updateModeUI);
 
 decesAnneeOnly.addEventListener('change', () => {
   decesDateGroup.classList.toggle('hidden', decesAnneeOnly.checked);
@@ -94,6 +99,12 @@ function validate() {
       }
     } else if (!inputFutur.value) {
       setStatus('Veuillez sélectionner une date de référence', 'error'); return false;
+    }
+  }
+  if (chkAge.checked) {
+    const v = parseInt(inputAge.value, 10);
+    if (isNaN(v) || v < 0 || v > 150) {
+      setStatus('Âge invalide — entier entre 0 et 150', 'error'); return false;
     }
   }
   return true;
@@ -135,7 +146,8 @@ async function handleSubmit() {
   try {
     const results = await Promise.all(requests);
     clearStatus();
-    renderAllResults(results);
+    const ageResult = chkAge.checked ? calcAge(inputDate.value, parseInt(inputAge.value, 10)) : null;
+    renderAllResults(results, ageResult);
   } catch (e) {
     setStatus(e.message, 'error');
   } finally {
@@ -157,8 +169,10 @@ btnReset.addEventListener('click', () => {
   inputFuturAnnee.value = '';
   chkDeces.checked = false;
   chkFutur.checked = false;
+  chkAge.checked = false;
   decesAnneeOnly.checked = false;
   futurAnneeOnly.checked = false;
+  inputAge.value = '';
   updateModeUI();
   decesDateGroup.classList.remove('hidden');
   decesYearGroup.classList.add('hidden');
@@ -304,9 +318,34 @@ const MODE_LABELS = {
   futur_annee: 'Date future (année)',
 };
 
-function renderAllResults(payloads) {
+function calcAge(naissanceIso, age) {
+  const [y, m, d] = naissanceIso.split('-').map(Number);
+  const annee = y + age;
+  // Vérifier si l'anniversaire exact tombe le 29/02 et si annee n'est pas bissextile
+  const estFev29 = m === 2 && d === 29;
+  const bissextile = annee % 4 === 0 && (annee % 100 !== 0 || annee % 400 === 0);
+  const annivIso = estFev29 && !bissextile
+    ? `${annee}-03-01`
+    : `${annee}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+  return { age, annee, annivIso, noteNonBissextile: estFev29 && !bissextile };
+}
+
+function renderAge(ageResult) {
+  const { age, annee, annivIso, noteNonBissextile } = ageResult;
+  let html = `<div class="info-cards">`;
+  html += card('Âge demandé', `${age} ans`);
+  html += card('Année', `${annee}`);
+  html += card(
+    `Anniversaire des ${age} ans`,
+    formatDateFr(annivIso) + (noteNonBissextile ? noteBiss(true) : '')
+  );
+  html += `</div>`;
+  return html;
+}
+
+function renderAllResults(payloads, ageResult = null) {
   const naissance = payloads[0].naissance;
-  const multiSection = payloads.length > 1;
+  const multiSection = payloads.length > 1 || ageResult !== null;
 
   let html = `<div class="result-header">
     <div class="result-naissance">🎂 Date de naissance : ${formatDateFr(naissance)}</div>
@@ -317,6 +356,13 @@ function renderAllResults(payloads) {
       html += `<div class="result-section-title">${MODE_LABELS[payload.mode] ?? payload.mode}</div>`;
     }
     html += renderOneResult(payload);
+  }
+
+  if (ageResult !== null) {
+    if (multiSection) {
+      html += `<div class="result-section-title">Âge</div>`;
+    }
+    html += renderAge(ageResult);
   }
 
   resultEl.innerHTML = html;

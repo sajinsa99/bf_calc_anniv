@@ -57,7 +57,8 @@ main {
   color: #666;
 }
 
-.form-group input[type=text] {
+.form-group input[type=text],
+.form-group input[type=number] {
   padding: 0.45rem 0.7rem;
   border-radius: 6px;
   border: 1px solid #444;
@@ -67,7 +68,8 @@ main {
   max-width: 200px;
 }
 
-.form-group input[type=text]:focus {
+.form-group input[type=text]:focus,
+.form-group input[type=number]:focus {
   border-color: #666;
   outline: none;
 }
