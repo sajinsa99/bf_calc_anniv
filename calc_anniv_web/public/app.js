@@ -99,7 +99,7 @@ function validate() {
 // ── API calls ─────────────────────────────────────────────────────────────────
 async function fetchCalc(extraParams) {
   const params = new URLSearchParams({ date: inputDate.value.trim(), ...extraParams });
-  const resp = await fetch(`/api/calc?${params}`);
+  const resp = await fetch(`api/calc?${params}`);
   const payload = await resp.json();
   if (!resp.ok) throw new Error(payload.error || 'Erreur serveur');
   return payload;
