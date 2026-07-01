@@ -471,9 +471,6 @@ def main():  # pylint: disable=too-many-branches,too-many-statements
                 if futur_date < naissance:
                     print("❌ La date de référence est antérieure à la date de naissance.", file=sys.stderr)
                     sys.exit(1)
-                if futur_date < aujourd_hui:
-                    print(f"❌ La date future « {args.futur} » est dans le passé.", file=sys.stderr)
-                    sys.exit(1)
                 result["mode"] = "futur"
                 result["data"] = data_futur_complet(naissance, futur_date, aujourd_hui)
 
@@ -526,9 +523,6 @@ def main():  # pylint: disable=too-many-branches,too-many-statements
         else:
             if futur_date < naissance:
                 err("❌ La date de référence est antérieure à la date de naissance.")
-                sys.exit(1)
-            if futur_date < aujourd_hui:
-                err(f"❌ La date future « {args.futur} » est dans le passé.")
                 sys.exit(1)
             affiche_section_futur_complet(naissance, futur_date, aujourd_hui)
 
