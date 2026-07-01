@@ -97,8 +97,17 @@ function validate() {
       if (!RE_YEAR.test(inputFuturAnnee.value.trim())) {
         setStatus('Format d\'année invalide — attendu AAAA', 'error'); return false;
       }
+      if (!chkDeces.checked) {
+        const anneeNaiss = parseInt(inputDate.value.split('-')[0], 10);
+        const anneeRef   = parseInt(inputFuturAnnee.value.trim(), 10);
+        if (anneeRef < anneeNaiss) {
+          setStatus('L\'année de référence doit être ≥ à l\'année de naissance', 'error'); return false;
+        }
+      }
     } else if (!inputFutur.value) {
-      setStatus('Veuillez sélectionner une date de référence', 'error'); return false;
+      setStatus('Veuillez sélectionner une date', 'error'); return false;
+    } else if (!chkDeces.checked && inputFutur.value < inputDate.value) {
+      setStatus('La date doit être ≥ à la date de naissance', 'error'); return false;
     }
   }
   if (chkAge.checked) {
@@ -314,8 +323,8 @@ const MODE_LABELS = {
   vivant:      'Aujourd\'hui',
   deces:       'Décès',
   deces_annee: 'Décès (année)',
-  futur:       'Date future',
-  futur_annee: 'Date future (année)',
+  futur:       'Date',
+  futur_annee: 'Date (année)',
 };
 
 function calcAge(naissanceIso, age) {
