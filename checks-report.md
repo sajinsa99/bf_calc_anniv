@@ -1,4 +1,4 @@
-# Checks Report — bf_calc_anniv — 2026-07-02 09:18:05
+# Checks Report — bf_calc_anniv — 2026-11-12 15:44:06
 
 ## Summary
 
@@ -53,12 +53,12 @@ _no output_
     "npm": "10.8.2"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "express-rate-limit": "^7.0.0"
+    "express": "^5.3.0",
+    "express-rate-limit": "^8.7.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.0.0",
-    "globals": "^15.0.0"
+    "globals": "^17.14.0"
   }
 }
 ```
@@ -106,9 +106,30 @@ _no output_
 **Status:** ✅ PASS
 
 ```
+Unable to find image 'python:3.12-slim' locally
+3.12-slim: Pulling from library/python
+37fb86c2a767: Pulling fs layer
+68bced9e0afa: Pulling fs layer
+2dc99d2d0a39: Pulling fs layer
+05e0eee5572e: Pulling fs layer
+05e0eee5572e: Waiting
+2dc99d2d0a39: Verifying Checksum
+2dc99d2d0a39: Download complete
+68bced9e0afa: Verifying Checksum
+68bced9e0afa: Download complete
+05e0eee5572e: Verifying Checksum
+05e0eee5572e: Download complete
+37fb86c2a767: Verifying Checksum
+37fb86c2a767: Download complete
+37fb86c2a767: Pull complete
+68bced9e0afa: Pull complete
+2dc99d2d0a39: Pull complete
+05e0eee5572e: Pull complete
+Digest: sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+Status: Downloaded newer image for python:3.12-slim
 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
 
-[notice] A new release of pip is available: 25.0.1 -> 26.1.2
+[notice] A new release of pip is available: 25.0.1 -> 26.3
 [notice] To update, run: pip install --upgrade pip
 
 ------------------------------------
@@ -124,17 +145,17 @@ Your code has been rated at 10.00/10
 ```
 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
 
-[notice] A new release of pip is available: 25.0.1 -> 26.1.2
+[notice] A new release of pip is available: 25.0.1 -> 26.3
 [notice] To update, run: pip install --upgrade pip
 ============================= test session starts ==============================
-platform linux -- Python 3.12.13, pytest-9.1.1, pluggy-1.6.0
+platform linux -- Python 3.12.16, pytest-9.2.0, pluggy-1.7.0
 rootdir: /work
 configfile: pyproject.toml
 collected 28 items
 
 tests/test_calc_anniv.py ............................                    [100%]
 
-============================== 28 passed in 0.31s ==============================
+============================== 28 passed in 0.35s ==============================
 ```
 
 ---
@@ -196,14 +217,14 @@ See https://semgrep.dev/docs/reporting-false-negatives/
 **Status:** ✅ PASS
 
 ```
-2026-07-02T07:17:58Z	INFO	[vulndb] Need to update DB
-2026-07-02T07:17:58Z	INFO	[vulndb] Downloading vulnerability DB...
-2026-07-02T07:17:58Z	INFO	[vulndb] Downloading artifact...	repo="mirror.gcr.io/aquasec/trivy-db:2"
-24.18 MiB / 98.62 MiB [-------------->______________________________________________] 24.52% ? p/s ?49.87 MiB / 98.62 MiB [------------------------------>______________________________] 50.56% ? p/s ?72.13 MiB / 98.62 MiB [-------------------------------------------->________________] 73.14% ? p/s ?97.47 MiB / 98.62 MiB [---------------------------------------------->] 98.83% 122.18 MiB p/s ETA 0s98.62 MiB / 98.62 MiB [--------------------------------------------->] 100.00% 122.18 MiB p/s ETA 0s98.62 MiB / 98.62 MiB [--------------------------------------------->] 100.00% 122.18 MiB p/s ETA 0s98.62 MiB / 98.62 MiB [--------------------------------------------->] 100.00% 114.42 MiB p/s ETA 0s98.62 MiB / 98.62 MiB [--------------------------------------------->] 100.00% 114.42 MiB p/s ETA 0s98.62 MiB / 98.62 MiB [--------------------------------------------->] 100.00% 114.42 MiB p/s ETA 0s98.62 MiB / 98.62 MiB [--------------------------------------------->] 100.00% 107.04 MiB p/s ETA 0s98.62 MiB / 98.62 MiB [--------------------------------------------->] 100.00% 107.04 MiB p/s ETA 0s98.62 MiB / 98.62 MiB [--------------------------------------------->] 100.00% 107.04 MiB p/s ETA 0s98.62 MiB / 98.62 MiB [--------------------------------------------->] 100.00% 100.13 MiB p/s ETA 0s98.62 MiB / 98.62 MiB [--------------------------------------------->] 100.00% 100.13 MiB p/s ETA 0s98.62 MiB / 98.62 MiB [--------------------------------------------->] 100.00% 100.13 MiB p/s ETA 0s98.62 MiB / 98.62 MiB [---------------------------------------------->] 100.00% 93.67 MiB p/s ETA 0s98.62 MiB / 98.62 MiB [---------------------------------------------->] 100.00% 93.67 MiB p/s ETA 0s98.62 MiB / 98.62 MiB [---------------------------------------------->] 100.00% 93.67 MiB p/s ETA 0s98.62 MiB / 98.62 MiB [---------------------------------------------->] 100.00% 87.63 MiB p/s ETA 0s98.62 MiB / 98.62 MiB [---------------------------------------------->] 100.00% 87.63 MiB p/s ETA 0s98.62 MiB / 98.62 MiB [---------------------------------------------->] 100.00% 87.63 MiB p/s ETA 0s98.62 MiB / 98.62 MiB [---------------------------------------------->] 100.00% 81.97 MiB p/s ETA 0s98.62 MiB / 98.62 MiB [-------------------------------------------------] 100.00% 23.18 MiB p/s 4.5s2026-07-02T07:18:03Z	INFO	[vulndb] Artifact successfully downloaded	repo="mirror.gcr.io/aquasec/trivy-db:2"
-2026-07-02T07:18:03Z	INFO	[vuln] Vulnerability scanning is enabled
-2026-07-02T07:18:03Z	INFO	Suppressing dependencies for development and testing. To display them, try the '--include-dev-deps' flag.
-2026-07-02T07:18:03Z	INFO	Number of language-specific files	num=1
-2026-07-02T07:18:03Z	INFO	[npm] Detecting vulnerabilities...
+2026-11-12T14:43:57Z	INFO	[vulndb] Need to update DB
+2026-11-12T14:43:57Z	INFO	[vulndb] Downloading vulnerability DB...
+2026-11-12T14:43:57Z	INFO	[vulndb] Downloading artifact...	repo="mirror.gcr.io/aquasec/trivy-db:2"
+18.91 MiB / 133.50 MiB [-------->___________________________________________________] 14.17% ? p/s ?47.97 MiB / 133.50 MiB [--------------------->______________________________________] 35.93% ? p/s ?77.70 MiB / 133.50 MiB [---------------------------------->_________________________] 58.20% ? p/s ?110.55 MiB / 133.50 MiB [------------------------------------->_______] 82.81% 152.74 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 152.74 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 152.74 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 145.35 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 145.35 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 145.35 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 135.97 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 135.97 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 135.97 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 127.20 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 127.20 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 127.20 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 119.00 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 119.00 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 119.00 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 111.32 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 111.32 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 111.32 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 104.14 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 104.14 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 104.14 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [-------------------------------------------->] 100.00% 97.42 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [-------------------------------------------->] 100.00% 97.42 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [-------------------------------------------->] 100.00% 97.42 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [-----------------------------------------------] 100.00% 24.84 MiB p/s 5.6s2026-11-12T14:44:03Z	INFO	[vulndb] Artifact successfully downloaded	repo="mirror.gcr.io/aquasec/trivy-db:2"
+2026-11-12T14:44:03Z	INFO	[vuln] Vulnerability scanning is enabled
+2026-11-12T14:44:03Z	INFO	Suppressing dependencies for development and testing. To display them, try the '--include-dev-deps' flag.
+2026-11-12T14:44:03Z	INFO	Number of language-specific files	num=1
+2026-11-12T14:44:03Z	INFO	[npm] Detecting vulnerabilities...
 
 Report Summary
 
@@ -215,6 +236,12 @@ Report Summary
 Legend:
 - '-': Not scanned
 - '0': Clean (no security findings detected)
+
+
+📣 [34mNotices:[0m
+  - Version 0.76.2 of Trivy is now available, current version is 0.76.1
+
+To suppress version checks, run Trivy scans with the --skip-version-check flag
 ```
 
 ---
@@ -233,9 +260,9 @@ Legend:
     ○ ░
     ░    gitleaks
 
-[90m7:18AM[0m [32mINF[0m [1m21 commits scanned.[0m
-[90m7:18AM[0m [32mINF[0m [1mscanned ~149694 bytes (149.69 KB) in 251ms[0m
-[90m7:18AM[0m [32mINF[0m [1mno leaks found[0m
+[90m2:44PM[0m [32mINF[0m [1m27 commits scanned.[0m
+[90m2:44PM[0m [32mINF[0m [1mscanned ~179087 bytes (179.09 KB) in 308ms[0m
+[90m2:44PM[0m [32mINF[0m [1mno leaks found[0m
 ```
 
 ---
