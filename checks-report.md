@@ -1,4 +1,4 @@
-# Checks Report — bf_calc_anniv — 2026-11-12 15:44:06
+# Checks Report — bf_calc_anniv — 2026-11-12 15:57:37
 
 ## Summary
 
@@ -106,27 +106,6 @@ _no output_
 **Status:** ✅ PASS
 
 ```
-Unable to find image 'python:3.12-slim' locally
-3.12-slim: Pulling from library/python
-37fb86c2a767: Pulling fs layer
-68bced9e0afa: Pulling fs layer
-2dc99d2d0a39: Pulling fs layer
-05e0eee5572e: Pulling fs layer
-05e0eee5572e: Waiting
-2dc99d2d0a39: Verifying Checksum
-2dc99d2d0a39: Download complete
-68bced9e0afa: Verifying Checksum
-68bced9e0afa: Download complete
-05e0eee5572e: Verifying Checksum
-05e0eee5572e: Download complete
-37fb86c2a767: Verifying Checksum
-37fb86c2a767: Download complete
-37fb86c2a767: Pull complete
-68bced9e0afa: Pull complete
-2dc99d2d0a39: Pull complete
-05e0eee5572e: Pull complete
-Digest: sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
-Status: Downloaded newer image for python:3.12-slim
 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
 
 [notice] A new release of pip is available: 25.0.1 -> 26.3
@@ -155,7 +134,7 @@ collected 28 items
 
 tests/test_calc_anniv.py ............................                    [100%]
 
-============================== 28 passed in 0.35s ==============================
+============================== 28 passed in 0.30s ==============================
 ```
 
 ---
@@ -217,14 +196,14 @@ See https://semgrep.dev/docs/reporting-false-negatives/
 **Status:** ✅ PASS
 
 ```
-2026-11-12T14:43:57Z	INFO	[vulndb] Need to update DB
-2026-11-12T14:43:57Z	INFO	[vulndb] Downloading vulnerability DB...
-2026-11-12T14:43:57Z	INFO	[vulndb] Downloading artifact...	repo="mirror.gcr.io/aquasec/trivy-db:2"
-18.91 MiB / 133.50 MiB [-------->___________________________________________________] 14.17% ? p/s ?47.97 MiB / 133.50 MiB [--------------------->______________________________________] 35.93% ? p/s ?77.70 MiB / 133.50 MiB [---------------------------------->_________________________] 58.20% ? p/s ?110.55 MiB / 133.50 MiB [------------------------------------->_______] 82.81% 152.74 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 152.74 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 152.74 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 145.35 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 145.35 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 145.35 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 135.97 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 135.97 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 135.97 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 127.20 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 127.20 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 127.20 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 119.00 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 119.00 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 119.00 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 111.32 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 111.32 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 111.32 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 104.14 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 104.14 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 104.14 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [-------------------------------------------->] 100.00% 97.42 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [-------------------------------------------->] 100.00% 97.42 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [-------------------------------------------->] 100.00% 97.42 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [-----------------------------------------------] 100.00% 24.84 MiB p/s 5.6s2026-11-12T14:44:03Z	INFO	[vulndb] Artifact successfully downloaded	repo="mirror.gcr.io/aquasec/trivy-db:2"
-2026-11-12T14:44:03Z	INFO	[vuln] Vulnerability scanning is enabled
-2026-11-12T14:44:03Z	INFO	Suppressing dependencies for development and testing. To display them, try the '--include-dev-deps' flag.
-2026-11-12T14:44:03Z	INFO	Number of language-specific files	num=1
-2026-11-12T14:44:03Z	INFO	[npm] Detecting vulnerabilities...
+2026-11-12T14:57:23Z	INFO	[vulndb] Need to update DB
+2026-11-12T14:57:23Z	INFO	[vulndb] Downloading vulnerability DB...
+2026-11-12T14:57:23Z	INFO	[vulndb] Downloading artifact...	repo="mirror.gcr.io/aquasec/trivy-db:2"
+21.81 MiB / 133.50 MiB [--------->__________________________________________________] 16.34% ? p/s ?54.75 MiB / 133.50 MiB [------------------------>___________________________________] 41.01% ? p/s ?89.50 MiB / 133.50 MiB [---------------------------------------->___________________] 67.04% ? p/s ?124.32 MiB / 133.50 MiB [----------------------------------------->___] 93.12% 171.09 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 171.09 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 171.09 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 161.04 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 161.04 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 161.04 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 150.65 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 150.65 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 150.65 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 140.93 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 140.93 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 140.93 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 131.84 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 131.84 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 131.84 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 123.33 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 123.33 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 123.33 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 115.38 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 115.38 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 115.38 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 107.93 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 107.93 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 107.93 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [------------------------------------------->] 100.00% 100.97 MiB p/s ETA 0s133.50 MiB / 133.50 MiB [-----------------------------------------------] 100.00% 24.59 MiB p/s 5.6s2026-11-12T14:57:34Z	INFO	[vulndb] Artifact successfully downloaded	repo="mirror.gcr.io/aquasec/trivy-db:2"
+2026-11-12T14:57:34Z	INFO	[vuln] Vulnerability scanning is enabled
+2026-11-12T14:57:34Z	INFO	Suppressing dependencies for development and testing. To display them, try the '--include-dev-deps' flag.
+2026-11-12T14:57:34Z	INFO	Number of language-specific files	num=1
+2026-11-12T14:57:34Z	INFO	[npm] Detecting vulnerabilities...
 
 Report Summary
 
@@ -236,12 +215,6 @@ Report Summary
 Legend:
 - '-': Not scanned
 - '0': Clean (no security findings detected)
-
-
-📣 [34mNotices:[0m
-  - Version 0.76.2 of Trivy is now available, current version is 0.76.1
-
-To suppress version checks, run Trivy scans with the --skip-version-check flag
 ```
 
 ---
@@ -260,9 +233,9 @@ To suppress version checks, run Trivy scans with the --skip-version-check flag
     ○ ░
     ░    gitleaks
 
-[90m2:44PM[0m [32mINF[0m [1m27 commits scanned.[0m
-[90m2:44PM[0m [32mINF[0m [1mscanned ~179087 bytes (179.09 KB) in 308ms[0m
-[90m2:44PM[0m [32mINF[0m [1mno leaks found[0m
+[90m2:57PM[0m [32mINF[0m [1m28 commits scanned.[0m
+[90m2:57PM[0m [32mINF[0m [1mscanned ~184047 bytes (184.05 KB) in 299ms[0m
+[90m2:57PM[0m [32mINF[0m [1mno leaks found[0m
 ```
 
 ---
