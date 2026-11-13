@@ -90,14 +90,13 @@ else
   echo "    include /etc/nginx/snippets/*_location.conf;" >&2
 fi
 
-# Ensure limit_req_zone "auth" is defined in nginx http block
+# Ensure all limit_req_zone definitions are present in nginx http block
 RATE_LIMIT_CONF="/etc/nginx/conf.d/rate_limit.conf"
-if [[ ! -f "$RATE_LIMIT_CONF" ]]; then
-  printf 'limit_req_zone $binary_remote_addr zone=auth:10m rate=5r/m;\n' > "$RATE_LIMIT_CONF"
-  echo "    Created $RATE_LIMIT_CONF (limit_req_zone auth:10m)"
-else
-  echo "    $RATE_LIMIT_CONF already present, skipping."
-fi
+cat > "$RATE_LIMIT_CONF" << 'NGINXEOF'
+limit_req_zone $binary_remote_addr zone=global:10m rate=30r/s;
+limit_req_zone $binary_remote_addr zone=auth:10m   rate=5r/m;
+NGINXEOF
+echo "    Updated $RATE_LIMIT_CONF (zones: global, auth)"
 
 nginx -t
 systemctl restart nginx
