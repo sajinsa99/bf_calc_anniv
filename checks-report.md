@@ -1,4 +1,4 @@
-# Checks Report — bf_calc_anniv — 2026-11-13 11:45:24
+# Checks Report — bf_calc_anniv — 2026-11-13 14:39:34
 
 ## Summary
 
@@ -9,15 +9,18 @@
 | hadolint  (tmp/Dockerfile not found) | ⏭ SKIP |
 | markdownlint-cli2  (tmp/README.md not found) | ⏭ SKIP |
 | eslint  calc_anniv_web/server.js  calc_anniv_web/public/app.js | ✅ PASS |
+| htmlhint  HTML files | ✅ PASS |
+| stylelint  CSS files | ❌ FAIL |
 | yamllint  (no *.yaml / *.yml files found) | ⏭ SKIP |
 | pylint  calc-anniv.py | ✅ PASS |
 | pytest  tests/ | ✅ PASS |
+| bandit  calc-anniv.py | ✅ PASS |
 | semgrep  calc-anniv.py + JS sources | ✅ PASS |
 | checkov  (tmp/Dockerfile not found) | ⏭ SKIP |
 | trivy  HIGH/CRITICAL CVEs | ✅ PASS |
 | gitleaks  secrets in repo | ✅ PASS |
 | detect-secrets  (run: detect-secrets scan > .secrets.baseline  to create baseline) | ⏭ SKIP |
-| **Total** | PASS: 8 · FAIL: 0 · SKIP: 5 |
+| **Total** | PASS: 10 · FAIL: 1 · SKIP: 5 |
 
 ---
 
@@ -27,58 +30,7 @@
 
 **Status:** ✅ PASS
 
-```
-Unable to find image 'xmake-deploy-milestone.int.repositories.cloud.sap/com.sap.internal.prd.xmk.tools/xmk_linters:2.0.4' locally
-2.0.4: Pulling from com.sap.internal.prd.xmk.tools/xmk_linters
-517b871c26ea: Already exists
-96aae9022e0e: Already exists
-93cbc450b015: Pulling fs layer
-333115460fd0: Pulling fs layer
-983bd05b917d: Pulling fs layer
-0e77df7aa202: Pulling fs layer
-03bf8cd13bd5: Pulling fs layer
-cb8b6dea2700: Pulling fs layer
-b0d2b241f93d: Pulling fs layer
-c297d27bff78: Pulling fs layer
-4f4fb700ef54: Pulling fs layer
-a7334588d880: Pulling fs layer
-0e77df7aa202: Waiting
-03bf8cd13bd5: Waiting
-cb8b6dea2700: Waiting
-b0d2b241f93d: Waiting
-4f4fb700ef54: Waiting
-c297d27bff78: Waiting
-a7334588d880: Waiting
-983bd05b917d: Verifying Checksum
-983bd05b917d: Download complete
-0e77df7aa202: Verifying Checksum
-0e77df7aa202: Download complete
-93cbc450b015: Verifying Checksum
-93cbc450b015: Download complete
-cb8b6dea2700: Verifying Checksum
-cb8b6dea2700: Download complete
-b0d2b241f93d: Verifying Checksum
-b0d2b241f93d: Download complete
-03bf8cd13bd5: Verifying Checksum
-4f4fb700ef54: Verifying Checksum
-4f4fb700ef54: Download complete
-c297d27bff78: Download complete
-a7334588d880: Download complete
-333115460fd0: Verifying Checksum
-333115460fd0: Download complete
-93cbc450b015: Pull complete
-333115460fd0: Pull complete
-983bd05b917d: Pull complete
-0e77df7aa202: Pull complete
-03bf8cd13bd5: Pull complete
-cb8b6dea2700: Pull complete
-b0d2b241f93d: Pull complete
-c297d27bff78: Pull complete
-4f4fb700ef54: Pull complete
-a7334588d880: Pull complete
-Digest: sha256:d1381aa184dd9744b8980785fabce46fe49cdcffcf2fb6a42c264fbdc42287be
-Status: Downloaded newer image for xmake-deploy-milestone.int.repositories.cloud.sap/com.sap.internal.prd.xmk.tools/xmk_linters:2.0.4
-```
+_no output_
 
 ---
 
@@ -142,6 +94,37 @@ _no output_
 
 ---
 
+## HTML
+
+### `htmlhint  HTML files`
+
+**Status:** ✅ PASS
+
+```
+
+Scanned 1 files, no errors found (12 ms).
+```
+
+---
+
+## CSS
+
+### `stylelint  CSS files`
+
+**Status:** ❌ FAIL (exit 78)
+
+```
+ConfigurationError: No configuration provided for /work/calc_anniv_web/public/style.css
+    at getConfigForFile (file:///usr/lib/node_modules/stylelint/lib/getConfigForFile.mjs:80:9)
+    at async isPathIgnored (file:///usr/lib/node_modules/stylelint/lib/isPathIgnored.mjs:23:17)
+    at async lintSource (file:///usr/lib/node_modules/stylelint/lib/lintSource.mjs:48:20)
+    at async file:///usr/lib/node_modules/stylelint/lib/standalone.mjs:262:27
+    at async Promise.all (index 0)
+    at async standalone (file:///usr/lib/node_modules/stylelint/lib/standalone.mjs:310:22)
+```
+
+---
+
 ## YAML
 
 ### `yamllint  (no *.yaml / *.yml files found)`
@@ -157,10 +140,6 @@ _no output_
 **Status:** ✅ PASS
 
 ```
-WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
-
-[notice] A new release of pip is available: 25.0.1 -> 26.3
-[notice] To update, run: pip install --upgrade pip
 
 ------------------------------------
 Your code has been rated at 10.00/10
@@ -173,19 +152,55 @@ Your code has been rated at 10.00/10
 **Status:** ✅ PASS
 
 ```
-WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
-
-[notice] A new release of pip is available: 25.0.1 -> 26.3
-[notice] To update, run: pip install --upgrade pip
 ============================= test session starts ==============================
-platform linux -- Python 3.12.16, pytest-9.2.0, pluggy-1.7.0
+platform linux -- Python 3.14.4, pytest-8.3.5, pluggy-1.7.0
 rootdir: /work
 configfile: pyproject.toml
+plugins: platformdirs-4.14.5, anyio-4.16.0
 collected 28 items
 
 tests/test_calc_anniv.py ............................                    [100%]
 
-============================== 28 passed in 0.34s ==============================
+============================== 28 passed in 0.41s ==============================
+```
+
+---
+
+### `bandit  calc-anniv.py`
+
+**Status:** ✅ PASS
+
+```
+[main]	INFO	profile include tests: None
+[main]	INFO	profile exclude tests: None
+[main]	INFO	cli include tests: None
+[main]	INFO	cli exclude tests: None
+[main]	INFO	running on Python 3.14.4
+[manager]	ERROR	Exception occurred when executing tests against ./calc-anniv.py.
+[manager]	ERROR	Run "bandit --debug ./calc-anniv.py" to see the full traceback.
+Run started:2026-11-13 13:39:21.800168
+
+Test results:
+	No issues identified.
+
+Code scanned:
+	Total lines of code: 417
+	Total lines skipped (#nosec): 0
+	Total potential issues skipped due to specifically being disabled (e.g., #nosec BXXX): 0
+
+Run metrics:
+	Total issues (by severity):
+		Undefined: 0
+		Low: 0
+		Medium: 0
+		High: 0
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 0
+		Medium: 0
+		High: 0
+Files skipped (1):
+	./calc-anniv.py (exception while scanning file)
 ```
 
 ---
@@ -245,14 +260,14 @@ See https://semgrep.dev/docs/reporting-false-negatives/
 **Status:** ✅ PASS
 
 ```
-2026-11-13T10:45:15Z	INFO	[vulndb] Need to update DB
-2026-11-13T10:45:15Z	INFO	[vulndb] Downloading vulnerability DB...
-2026-11-13T10:45:15Z	INFO	[vulndb] Downloading artifact...	repo="mirror.gcr.io/aquasec/trivy-db:2"
-23.75 MiB / 133.47 MiB [---------->_________________________________________________] 17.80% ? p/s ?58.95 MiB / 133.47 MiB [-------------------------->_________________________________] 44.16% ? p/s ?101.07 MiB / 133.47 MiB [-------------------------------------------->______________] 75.72% ? p/s ?133.47 MiB / 133.47 MiB [------------------------------------------->] 100.00% 183.04 MiB p/s ETA 0s133.47 MiB / 133.47 MiB [------------------------------------------->] 100.00% 183.04 MiB p/s ETA 0s133.47 MiB / 133.47 MiB [------------------------------------------->] 100.00% 183.04 MiB p/s ETA 0s133.47 MiB / 133.47 MiB [------------------------------------------->] 100.00% 171.23 MiB p/s ETA 0s133.47 MiB / 133.47 MiB [------------------------------------------->] 100.00% 171.23 MiB p/s ETA 0s133.47 MiB / 133.47 MiB [------------------------------------------->] 100.00% 171.23 MiB p/s ETA 0s133.47 MiB / 133.47 MiB [------------------------------------------->] 100.00% 160.19 MiB p/s ETA 0s133.47 MiB / 133.47 MiB [------------------------------------------->] 100.00% 160.19 MiB p/s ETA 0s133.47 MiB / 133.47 MiB [------------------------------------------->] 100.00% 160.19 MiB p/s ETA 0s133.47 MiB / 133.47 MiB [------------------------------------------->] 100.00% 149.85 MiB p/s ETA 0s133.47 MiB / 133.47 MiB [------------------------------------------->] 100.00% 149.85 MiB p/s ETA 0s133.47 MiB / 133.47 MiB [------------------------------------------->] 100.00% 149.85 MiB p/s ETA 0s133.47 MiB / 133.47 MiB [------------------------------------------->] 100.00% 140.18 MiB p/s ETA 0s133.47 MiB / 133.47 MiB [------------------------------------------->] 100.00% 140.18 MiB p/s ETA 0s133.47 MiB / 133.47 MiB [------------------------------------------->] 100.00% 140.18 MiB p/s ETA 0s133.47 MiB / 133.47 MiB [------------------------------------------->] 100.00% 131.14 MiB p/s ETA 0s133.47 MiB / 133.47 MiB [------------------------------------------->] 100.00% 131.14 MiB p/s ETA 0s133.47 MiB / 133.47 MiB [------------------------------------------->] 100.00% 131.14 MiB p/s ETA 0s133.47 MiB / 133.47 MiB [------------------------------------------->] 100.00% 122.68 MiB p/s ETA 0s133.47 MiB / 133.47 MiB [------------------------------------------->] 100.00% 122.68 MiB p/s ETA 0s133.47 MiB / 133.47 MiB [------------------------------------------->] 100.00% 122.68 MiB p/s ETA 0s133.47 MiB / 133.47 MiB [------------------------------------------->] 100.00% 114.76 MiB p/s ETA 0s133.47 MiB / 133.47 MiB [------------------------------------------->] 100.00% 114.76 MiB p/s ETA 0s133.47 MiB / 133.47 MiB [------------------------------------------->] 100.00% 114.76 MiB p/s ETA 0s133.47 MiB / 133.47 MiB [-----------------------------------------------] 100.00% 25.20 MiB p/s 5.5s2026-11-13T10:45:21Z	INFO	[vulndb] Artifact successfully downloaded	repo="mirror.gcr.io/aquasec/trivy-db:2"
-2026-11-13T10:45:21Z	INFO	[vuln] Vulnerability scanning is enabled
-2026-11-13T10:45:21Z	INFO	Suppressing dependencies for development and testing. To display them, try the '--include-dev-deps' flag.
-2026-11-13T10:45:21Z	INFO	Number of language-specific files	num=1
-2026-11-13T10:45:21Z	INFO	[npm] Detecting vulnerabilities...
+2026-11-13T13:39:26Z	INFO	[vulndb] Need to update DB
+2026-11-13T13:39:26Z	INFO	[vulndb] Downloading vulnerability DB...
+2026-11-13T13:39:26Z	INFO	[vulndb] Downloading artifact...	repo="mirror.gcr.io/aquasec/trivy-db:2"
+18.62 MiB / 133.77 MiB [-------->___________________________________________________] 13.92% ? p/s ?55.92 MiB / 133.77 MiB [------------------------->__________________________________] 41.80% ? p/s ?88.72 MiB / 133.77 MiB [--------------------------------------->____________________] 66.32% ? p/s ?127.56 MiB / 133.77 MiB [------------------------------------------>__] 95.36% 181.82 MiB p/s ETA 0s133.77 MiB / 133.77 MiB [------------------------------------------->] 100.00% 181.82 MiB p/s ETA 0s133.77 MiB / 133.77 MiB [------------------------------------------->] 100.00% 181.82 MiB p/s ETA 0s133.77 MiB / 133.77 MiB [------------------------------------------->] 100.00% 170.75 MiB p/s ETA 0s133.77 MiB / 133.77 MiB [------------------------------------------->] 100.00% 170.75 MiB p/s ETA 0s133.77 MiB / 133.77 MiB [------------------------------------------->] 100.00% 170.75 MiB p/s ETA 0s133.77 MiB / 133.77 MiB [------------------------------------------->] 100.00% 159.74 MiB p/s ETA 0s133.77 MiB / 133.77 MiB [------------------------------------------->] 100.00% 159.74 MiB p/s ETA 0s133.77 MiB / 133.77 MiB [------------------------------------------->] 100.00% 159.74 MiB p/s ETA 0s133.77 MiB / 133.77 MiB [------------------------------------------->] 100.00% 149.43 MiB p/s ETA 0s133.77 MiB / 133.77 MiB [------------------------------------------->] 100.00% 149.43 MiB p/s ETA 0s133.77 MiB / 133.77 MiB [------------------------------------------->] 100.00% 149.43 MiB p/s ETA 0s133.77 MiB / 133.77 MiB [------------------------------------------->] 100.00% 139.79 MiB p/s ETA 0s133.77 MiB / 133.77 MiB [------------------------------------------->] 100.00% 139.79 MiB p/s ETA 0s133.77 MiB / 133.77 MiB [------------------------------------------->] 100.00% 139.79 MiB p/s ETA 0s133.77 MiB / 133.77 MiB [------------------------------------------->] 100.00% 130.77 MiB p/s ETA 0s133.77 MiB / 133.77 MiB [------------------------------------------->] 100.00% 130.77 MiB p/s ETA 0s133.77 MiB / 133.77 MiB [------------------------------------------->] 100.00% 130.77 MiB p/s ETA 0s133.77 MiB / 133.77 MiB [------------------------------------------->] 100.00% 122.34 MiB p/s ETA 0s133.77 MiB / 133.77 MiB [------------------------------------------->] 100.00% 122.34 MiB p/s ETA 0s133.77 MiB / 133.77 MiB [------------------------------------------->] 100.00% 122.34 MiB p/s ETA 0s133.77 MiB / 133.77 MiB [------------------------------------------->] 100.00% 114.44 MiB p/s ETA 0s133.77 MiB / 133.77 MiB [------------------------------------------->] 100.00% 114.44 MiB p/s ETA 0s133.77 MiB / 133.77 MiB [-----------------------------------------------] 100.00% 26.37 MiB p/s 5.3s2026-11-13T13:39:32Z	INFO	[vulndb] Artifact successfully downloaded	repo="mirror.gcr.io/aquasec/trivy-db:2"
+2026-11-13T13:39:32Z	INFO	[vuln] Vulnerability scanning is enabled
+2026-11-13T13:39:32Z	INFO	Suppressing dependencies for development and testing. To display them, try the '--include-dev-deps' flag.
+2026-11-13T13:39:32Z	INFO	Number of language-specific files	num=1
+2026-11-13T13:39:32Z	INFO	[npm] Detecting vulnerabilities...
 
 Report Summary
 
@@ -282,9 +297,9 @@ Legend:
     ○ ░
     ░    gitleaks
 
-[90m10:45AM[0m [32mINF[0m [1m34 commits scanned.[0m
-[90m10:45AM[0m [32mINF[0m [1mscanned ~189251 bytes (189.25 KB) in 235ms[0m
-[90m10:45AM[0m [32mINF[0m [1mno leaks found[0m
+[90m1:39PM[0m [32mINF[0m [1m36 commits scanned.[0m
+[90m1:39PM[0m [32mINF[0m [1mscanned ~195764 bytes (195.76 KB) in 237ms[0m
+[90m1:39PM[0m [32mINF[0m [1mno leaks found[0m
 ```
 
 ---
